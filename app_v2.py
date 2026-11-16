@@ -144,6 +144,9 @@ def apply_action(state, action, item, text):
         if code is None:
             return "The drawer needs a four-digit code. The player did not give one."
         if code == RULES["drawer_code"]:
+            if not state["books_examined"]:
+                return ("The player has not found any code yet. "
+                        "The drawer stays locked.")
             state["drawer_open"] = True
             return ("The code is correct and the drawer opens. "
                     f"Inside is a note that says: '{RULES['note_text']}'")
